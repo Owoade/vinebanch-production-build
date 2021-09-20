@@ -5,15 +5,15 @@ import Link from 'next/link'
 export const getStaticProps= async ({location})=>{
     
 
-    const key= "streams";
+    const key= "stream";
     const dir="streams";
    
-    const res=await fetch(`http://my-json-server.typicode.com/Owoade/vinebranch/${key}`)
+    const res=await fetch(`https://vb-backend.herokuapp.com/fetch-${key}`)
     const data=await res.json()
     const empty= data==[] ? true : false
     return{
         props:{
-            data,
+            data:data.filter((each)=>{return each.id != undefined}),
             dir,
             key,
             status:empty
@@ -23,9 +23,9 @@ export const getStaticProps= async ({location})=>{
 const View = ({data,dir,key,status}) => {
   const [stream,setStream]=useState(data); 
   const [stat,setStat]=useState(status);
-  const new_key= "streams";
+  const new_key= "stream";
  const Delete = (id)=>{
-      const del =fetch(`http://localhost:8000/${new_key}/${id}`,{method:"DELETE"});;  
+      const del =fetch(`https://vb-backend.herokuapp.com/fetch-${new_key}/${id}`,{method:"DELETE"});;  
      setStream(stream.filter((each)=>{return each.id !== id}));
     } 
 useEffect(()=>{},[stream]);

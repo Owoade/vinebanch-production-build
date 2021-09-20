@@ -3,16 +3,16 @@ import {useEffect,useState} from 'react';
 import {useRouter} from 'next/router';
 import Link from 'next/link'
 export const getStaticProps= async ({location})=>{
-    const key= "blogs";
+    const key= "post";
     const dir="updates";
    
-    const res=await fetch(`http://my-json-server.typicode.com/Owoade/vinebranch/${key}`)
+    const res=await fetch(`https://vb-backend.herokuapp.com/fetch-${key}`)
     const data=await res.json()
     const empty= data==[] ? true : false
     console.log(empty);
     return{
         props:{
-            data,
+            data:data.filter((each)=>{return each.main != undefined}),
             dir,
             key,
             status:empty
@@ -20,16 +20,14 @@ export const getStaticProps= async ({location})=>{
     }
 }
 const View = ({data,dir,key,status}) => {
-   
-    
-    const new_key= "blogs";
+    const new_key= "post";
     const [blogs,setBlogs]=useState(data);
     const [stat,setStat]=useState(status);
     // console.log(stat)
     const [deleted,setDel]=useState('');
     useEffect(()=>{console.log('effect happened')},[deleted])
     const Delete = (id)=>{
-      const del =fetch(`http://localhost:8000/${new_key}/${id}`,{method:"DELETE"})  
+      const del =fetch(`https://vb-backend.herokuapp.com/delete-${new_key}/${id}`)  
       setDevotion(blogs.filter((each)=>{return each.id !== id}));
     }
     useEffect(()=>{},[blogs]);

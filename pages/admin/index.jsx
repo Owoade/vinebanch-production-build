@@ -7,8 +7,7 @@ const Admin = () => {
     const [clicked,setClick]=useState(false);
     const login= async ()=>{
         setClick(true)
-        const res= await fetch('http://my-json-server.typicode.com/Owoade/vinebranch/admin');
-        const {admin_id,pw} = await res.json();
+        const {admin_id,pw} = {admin_id:"vinebranch01",pw:"vinebranch"};
         console.log(admin_id,pw);
         if(admin_id==id && pw ==password){
             setClick(false)

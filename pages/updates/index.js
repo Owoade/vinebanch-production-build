@@ -1,19 +1,14 @@
 import Link from 'next/link'
 export const getStaticProps = async () => {
-    const res = await fetch('http://my-json-server.typicode.com/Owoade/vinebranch/blogs');
+    const res = await fetch('https://vb-backend.herokuapp.com/fetch-post');
     const data = await res.json();
     return {
-        props: { blogs: data }
+        props: { blogs: data.filter((each)=>{return each.main != undefined}) }
     }
 }
 const update = ({ blogs }) => {
-    const formatDate = (date) => {
-        let formattedDate = '',
-            date_arr = date.split(' ');
-        formattedDate += date_arr[1];
-        formattedDate += ` ${date_arr[2]}`;
-        formattedDate += ` ${date_arr[3]}`;
-        return formattedDate;
+    const __convert_date=(seconds)=>{
+        return new Date(seconds * 1000).toDateString();
     }
     return (
         <div className="main-update-container">
@@ -45,9 +40,9 @@ const update = ({ blogs }) => {
                         {
                             blogs.map((each) => (
                                 <div className="update-card">
-                                    <img src={each.image} alt="" />
+                                    <img src={each.url} alt="" />
                                     <a href={`/updates/${each.id}`}><h4>{each.title.toUpperCase()}</h4> </a>
-                                    <span className="category">{formatDate(each.date)}</span>
+                                    <span className="category">{__convert_date(each.date._seconds) }</span>
                                 </div>
 
                             ))

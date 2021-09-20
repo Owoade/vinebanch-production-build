@@ -1,12 +1,12 @@
 import Link from 'next/link'
 import {useRouter} from 'next/router'
 export const getStaticPaths = async ()=>{
-    const res= await fetch('http://my-json-server.typicode.com/Owoade/vinebranch/streams');
+    const res= await fetch('https://vb-backend.herokuapp.com/fetch-stream');
     const data = await res.json();
     
     const paths = data.map(each=>{
         return {
-            params:{id:each.id.toString()}
+            params:{id:each.id}
         }
     })
  
@@ -17,13 +17,13 @@ export const getStaticPaths = async ()=>{
  }
  export const getStaticProps= async (context)=>{
      const id = context.params.id;
-     const res = await fetch(`http://my-json-server.typicode.com/Owoade/vinebranch/streams/${id}`);
-     const res2 = await fetch(`http://my-json-server.typicode.com/Owoade/vinebranch/streams`);
+     const res = await fetch(`https://vb-backend.herokuapp.com/fetch-stream/${id}`);
+     const res2 = await fetch(`https://vb-backend.herokuapp.com/fetch-stream`);
      const data = await res.json();
      const data_2 = await res2.json();
      return {
          props: { stream: data,
-        old_streams:data_2 
+        old_streams:data_2.filter((each)=>{return each.main != undefined}) 
     }
      }
  }
@@ -33,9 +33,13 @@ export const getStaticPaths = async ()=>{
       return [`https://i.ytimg.com/vi/${id}/maxresdefault.jpg`,id]
 
     }
+    const __convert_date=(seconds)=>{
+        return new Date(seconds * 1000).toDateString()
+    }
    
     const mainStream = stream;
     const other_streams=old_streams.filter(each=>{return each.id != mainStream.id});
+    // console.log(stream,old_streams)
     return (
 
         <div className="main-container">
@@ -58,10 +62,10 @@ export const getStaticPaths = async ()=>{
             <div className="stream-info">
                 <div className="top">
                     <h1>{mainStream.title} </h1>
-                    <span>{mainStream.Date}</span>
+                    <span>{__convert_date(mainStream.date._seconds)}</span>
                 </div>
                 <main>
-                <iframe src={`https://www.youtube.com/embed/${getThumbnail(mainStream.link)[1]}`} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <iframe src={`https://www.youtube.com/embed/${getThumbnail(mainStream.url)[1]}`} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullscreen></iframe>
                 </main>
                 <div className="stream-container">
                     <h1>Recently Streamed</h1>
@@ -70,9 +74,9 @@ export const getStaticPaths = async ()=>{
                         {
                             other_streams.map(each=>(
                                 <div className="stream">
-                                <img src={getThumbnail(each.link)[0]} alt="" />
+                                <img src={getThumbnail(each.url)[0]} alt="" />
                                 <Link href={`/streams/${each.id}`}>{each.title}</Link>
-                                <span className="date">{each.Date}</span>
+                                <span className="date">{__convert_date(each.date._seconds) }</span>
                             </div>
                             ))
                            

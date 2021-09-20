@@ -5,20 +5,18 @@ import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import Typewriter from "typewriter-effect"
 import { AiOutlineMenu } from "react-icons/ri";
-import { withSentry } from "@sentry/nextjs";
-
 
 export const getStaticProps = async () => {
-  const res = await fetch('http://my-json-server.typicode.com/Owoade/vinebranch/devotions');
-  const res2 = await fetch('http://my-json-server.typicode.com/Owoade/vinebranch/blogs');
+  const res = await fetch('https://vb-backend.herokuapp.com/fetch-devotion');
+  const res2 = await fetch('https://vb-backend.herokuapp.com/fetch-post');
   const data = await res.json();
   const data2 = await res2.json();
 
 
   return {
     props: {
-      dev: data.sort((a, b) => { return b.id - a.id })[0],
-      blogs: data2.sort((a, b) => { return b.id - a.id }).filter((each, index) => { return index < 4 })
+      dev: data[0],
+      blogs: data2.filter((each, index) => { return index < 3 })
     }
   }
 }
@@ -76,7 +74,7 @@ const Home = ({ dev, blogs }) => {
             <div className="experience">
               <img src="asset/exp-1.jpg" alt="" />
               <h3>HEAVEN BACKED</h3>
-              <span>Come in for an experience of scriptural exposition </span>
+              <span>As you visit, you get immersed into the atmosphere of the heavenlies</span>
             </div>
             <div className="experience">
               <img src="asset/exp-2.jpg" alt="" />
@@ -86,7 +84,7 @@ const Home = ({ dev, blogs }) => {
             <div className="experience">
               <img src="asset/exp-3.jpg" alt="" />
               <h3>PRACTICAL</h3>
-              <span>Come in for an experience of scriptural exposition </span>
+              <span> Your experience with us becomes a testimony for the world </span>
             </div>
           </div>
         </div>
@@ -98,9 +96,9 @@ const Home = ({ dev, blogs }) => {
         <div className="content">
           <h1>Today's Blessing</h1>
           <h3>{dev.title.toUpperCase()}</h3>
-          <span className="verse"> {`${dev.paragraph_1.substring(0, 200)}.....`} <Link href="/devotional">Read more</Link>
+          <span className="verse"> {`${dev.morning_paragraph.substring(0, 200)}.....`} <Link href="/devotional">Read more</Link>
           </span>
-          <span className="reference">-{dev.verse_first}</span>
+          <span className="reference">-{dev.morning_verse}</span>
         </div>
       </div>
       <div className="history-container">
@@ -113,8 +111,8 @@ const Home = ({ dev, blogs }) => {
             </div>
             <div className="bottom">
 
-              <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Itaque cupiditate beatae excepturi vero, tempora repellat voluptatibus nam molestiae laborum quam ipsa sit, Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptates delectus adipisci nisi illum porro cupiditate dicta labore magnam necessitatibus molestiae. nostrum ullam accusantium aspernatur aperiam non officia quod. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tenetur tempora fugiat dolore repellendus minus sunt numquam omnis nesciunt iure ipsum!</p>
-              <p> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptates delectus adipisci nisi illum porro cupiditate dicta labore magnam necessitatibus molestiae. nostrum ullam accusantium aspernatur aperiam non officia quod. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tenetur tempora fugiat dolore repellendus minus sunt numquam omnis nesciunt iure ipsum!</p>
+              <p>Vine Branch Church Apata Centre is an integral part of the vision the Lord Jesus Christ gave to His servant, Revd. Dr. Sola Kolade to lead His children into “New realms of His glory”.</p>
+              <p> This centre was inaugurated of the leading of God’s Spirit as a full fledged worship centre on 2nd January 1999 at the Gangan Hall of the Lafia Hotel in Apata, Ibadan. Our first Sunday service has 88 people in attendance. The church has enjoyed heaven’s backing ever since as we remain committed to the simple preaching, teaching and doing God’s Holy word.</p>
               <img src="asset/signature.png" alt="" />
             </div>
           </div>
@@ -133,7 +131,7 @@ const Home = ({ dev, blogs }) => {
               {
                 blogs.map(each => (
                   <div className="event">
-                    <img src={each.image} alt="" />
+                    <img src={each.url} alt="" />
                     <div className="desc">
                       <span>{each.title}</span>
                       <a href={`/updates/${each.id}`}>Read more</a>

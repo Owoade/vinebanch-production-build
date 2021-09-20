@@ -2,19 +2,24 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 export const getStaticProps = async (context) => {
-    const res = await fetch(`http://my-json-server.typicode.com/Owoade/vinebranch/streams`);
+    const res = await fetch(`https://vb-backend.herokuapp.com/fetch-stream`);
     const data = await res.json();
     return {
         props: {
-            stream: data.sort((a, b) => { return b.id - a.id })[0],
-            old_streams:data.filter(each=>{return each.id !==  data.sort((a, b) => { return b.id - a.id })[0].id})
+            stream: data[0],
+            old_streams:data.filter((each)=>{return each.main != undefined}).filter((each,index)=>{return index != 0})
         }
     }
 }
 const stream = ({ stream,old_streams }) => {
+    const date= new Date(`${stream._seconds}`);
+    console.log(stream,old_streams,date)
     const getThumbnail=(url)=>{
       const id=url.split('/')[3];
       return [`https://i.ytimg.com/vi/${id}/maxresdefault.jpg`,id]
+    }
+    const __convert_date=(seconds)=>{
+        return new Date(seconds * 1000).toDateString()
     }
     console.log("https://www.youtube.com/embed/9nsewUCFmK4".split('/'));
     const mainStream = stream;
@@ -41,10 +46,10 @@ const stream = ({ stream,old_streams }) => {
             <div className="stream-info">
                 <div className="top">
                     <h1>{mainStream.title} </h1>
-                    <span>{mainStream.Date}</span>
+                    <span>{__convert_date(mainStream.date._seconds)}</span>
                 </div>
                 <main>
-                    <iframe src={`https://www.youtube.com/embed/${getThumbnail(mainStream.link)[1]}`} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <iframe src={`https://www.youtube.com/embed/${getThumbnail(mainStream.url)[1]}`} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullscreen></iframe>
                 </main>
                 <div className="stream-container">
                     <h1>Recently Streamed</h1>
@@ -53,9 +58,9 @@ const stream = ({ stream,old_streams }) => {
                         {
                             other_streams.map(each=>(
                                 <div className="stream">
-                                <img src={getThumbnail(each.link)[0]} alt="" />
+                                <img src={getThumbnail(each.url)[0]} alt="" />
                                 <Link href={`/streams/${each.id}`}>{each.title}</Link>
-                                <span className="date">{each.Date}</span>
+                                <span className="date">{__convert_date(each.date._seconds)}</span>
                             </div>
                             ))
                            

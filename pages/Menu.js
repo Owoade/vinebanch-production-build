@@ -7,9 +7,9 @@ const menu = () => {
         <div className="container">
         <i className="ri-close-line" onClick={()=>{router.back()}}></i>
           <nav>
-            <Link href="/https://vinebranchapata.org/messages/">Messages</Link>
+            <Link href="https://vinebranchapata.org/messages/">Messages</Link>
             <Link href="/updates">Updates</Link>
-            <Link href="/">Give on air</Link>
+            <Link href="/devotional">Devotional</Link>
             <Link href="/contact">Talk to us</Link>
           </nav>
         </div>

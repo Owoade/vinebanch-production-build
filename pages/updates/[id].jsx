@@ -1,11 +1,11 @@
 import Link from 'next/link'
 export const getStaticPaths = async ()=>{
-    const res= await fetch('http://my-json-server.typicode.com/Owoade/vinebranch/blogs');
+    const res= await fetch('https://vb-backend.herokuapp.com/fetch-post');
     const data = await res.json();
     
     const paths = data.map(each=>{
         return {
-            params:{id:each.id.toString()}
+            params:{id:each.id}
         }
     })
  
@@ -16,7 +16,7 @@ export const getStaticPaths = async ()=>{
  }
  export const getStaticProps= async (context)=>{
      const id = context.params.id;
-     const res = await fetch(`http://my-json-server.typicode.com/Owoade/vinebranch/blogs/${id}`);
+     const res = await fetch(`https://vb-backend.herokuapp.com/fetch-post/${id}`);
      const data = await res.json();
      return {
          props: { blog: data }
@@ -26,14 +26,9 @@ export const getStaticPaths = async ()=>{
 
 const update = ({blog}) => {
     console.log(new Date().toDateString());
-   const formatDate=(date)=>{
-     let formattedDate='',
-     date_arr=date.split(' ');
-      formattedDate+=date_arr[1];
-      formattedDate+=` ${date_arr[2]}` ;
-      formattedDate+= ` ${date_arr[3]}`;
-      return formattedDate;
-   }
+    const __convert_date=(seconds)=>{
+        return new Date(seconds * 1000).toDateString();
+    }
     return ( 
         <div className="main-container">
             
@@ -55,14 +50,14 @@ const update = ({blog}) => {
             <div className="blog-info">
                 <div className="top">
                     <h1>{blog.title} </h1>
-                    <span>{formatDate(blog.date)}</span>
+                    <span>{__convert_date( blog.date._seconds)}</span>
                 </div>
                 <main>
-                    <img src={blog.image} alt="" />
+                    <img src={blog.url} alt="" />
                 </main>
                 <div className="blog-wrapper">
                     {
-                        blog.paragraph.split('** new paragraph **').map((each, index) => (
+                        blog.body.split('** new paragraph **').map((each, index) => (
                             <p>{each}</p>
                         ))
                     }

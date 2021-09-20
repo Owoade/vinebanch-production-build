@@ -1,9 +1,9 @@
 import Link from "next/link";
 import {useRouter} from 'next/router'
 export const getStaticProps= async()=>{
-    const res_blogs=await fetch("http://my-json-server.typicode.com/Owoade/vinebranch/blogs");
-    const res_dev=await fetch("http://my-json-server.typicode.com/Owoade/vinebranch/devotions");
-    const res_streams=await fetch("http://my-json-server.typicode.com/Owoade/vinebranch/streams");
+    const res_blogs=await fetch("https://vb-backend.herokuapp.com/fetch-post");
+    const res_dev=await fetch("https://vb-backend.herokuapp.com/fetch-devotion");
+    const res_streams=await fetch("https://vb-backend.herokuapp.com/fetch-stream");
 
     const data_blogs=await res_blogs.json();
     const data_dev=await res_dev.json();
@@ -12,15 +12,17 @@ export const getStaticProps= async()=>{
 
     return{
         props:{
-            blog:data_blogs.sort((a,b)=>{return b.id - a.id})[0],
-            devotional:data_dev.sort((a,b)=>{return b.id - a.id})[0],
-            streams:data_streams.sort((a,b)=>{return b.id - a.id})[0]
+            blog:data_blogs[0],
+            devotional:data_dev[0],
+            streams:data_streams[0]
         }
     }
 }
 const Panel = ({blog,devotional,streams}) => {
     console.log(blog,devotional,streams)
     const router = useRouter();
+    
+    
     return (
         <div className="parent-container-panel">
             <header>
@@ -57,17 +59,17 @@ const Panel = ({blog,devotional,streams}) => {
                 <h2 className=" color-primary mt-40"> Recent Uploads </h2>
                 <div className="recent-container grid mt-40">
                     <div className="recent">
-                        <img src={blog.image} alt="" />
+                        <img src={blog.url} alt="" />
                         <span className="block color-typo-primary">Recent Blog</span>
                         <Link href="/admin/view-blog" className="block color-typo-primary web-link ">View All</Link>
                     </div>
                     <div className="recent">
-                        <img src={`https://i.ytimg.com/vi/${streams.link.split('/')[3]}/maxresdefault.jpg`} alt="" />
+                        <img src={`https://i.ytimg.com/vi/${streams.url.split('/')[3]}/maxresdefault.jpg`} alt="" />
                         <span className="block color-typo-primary">Recent Stream</span>
                         <Link href="/admin/view-streams" className="block color-primary web-link ">View All</Link>
                     </div>
                     <div className="recent">
-                        <img src={devotional.image} alt="" />
+                        <img src={devotional.url} alt="" />
                         <span className="block color-typo-primary">Recent Devotional</span>
                         <Link href="/admin/view-devotion" className="block color-primary web-link ">View All</Link>
                     </div>

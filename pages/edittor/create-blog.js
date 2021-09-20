@@ -8,14 +8,12 @@ const [paragraph,setPar]=useState();
 const [title,setTitle]=useState();
 const  blog_details={
   title,
-  paragraph,
-  image,
-  date:`${new Date().toDateString()}`
-       
+  body:paragraph,
+  url:image
 }
 const sendBlog=()=>{
   if(paragraph !='' && title !=''){
-    fetch('http://my-json-server.typicode.com/Owoade/vinebranch/blogs',{
+    fetch('https://vb-backend.herokuapp.com/add-post',{
       method:"POST",
       headers:{"Content-Type":"application/json"},
       body:JSON.stringify(blog_details)

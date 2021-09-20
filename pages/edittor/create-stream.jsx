@@ -7,17 +7,18 @@ const edittor = () => {
     const [title, setTitle] = useState();
     const stream_details = {
         title,
-        link,
-        date: `${new Date().toDateString()}`
+        url:link,
+        main:true
 
     }
     const sendStream = () => {
         if (link != '' && title != '') {
-            fetch('http://my-json-server.typicode.com/Owoade/vinebranch/streams', {
+            fetch('https://vb-backend.herokuapp.com/add-stream', {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(stream_details)
-            }).then(router.push('/admin/panel'))
+            })
+            .then(router.push('/admin/panel'))
         } else alert('Add a title and paragraph')
 
     }

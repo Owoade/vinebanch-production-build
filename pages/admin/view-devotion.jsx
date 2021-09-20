@@ -5,15 +5,15 @@ import Link from 'next/link'
 export const getStaticProps= async ({location})=>{
     
 
-    const key= "devotions";
+    const key= "devotion";
     const dir="devotional";
    
-    const res=await fetch(`http://my-json-server.typicode.com/Owoade/vinebranch/${key}`)
+    const res=await fetch(`https://vb-backend.herokuapp.com/fetch-${key}`)
     const data=await res.json()
     const empty= data==[] ? true : false
     return{
         props:{
-            data,
+            data:data.filter((each)=>{return each.id != undefined}),
             dir,
             key,
              status:empty
@@ -21,11 +21,11 @@ export const getStaticProps= async ({location})=>{
     }
 }
 const View = ({data,dir,key,status}) => {
-    const new_key='devotions';
+    const new_key='devotion';
     const [devotion,setDevotion]=useState(data);
     const [stat,setStat]=useState(status);
     const Delete = (id)=>{
-        const del =fetch(`http://localhost:8000/${new_key}/${id}`,{method:"DELETE"});;  
+        const del =fetch(`https://vb-backend.herokuapp.com/fetch-${new_key}/${id}`);  
        setDevotion(devotion.filter((each)=>{return each.id !== id}));
       } 
   useEffect(()=>{},[devotion]);

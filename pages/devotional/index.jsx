@@ -1,18 +1,20 @@
 import Link from 'next/link';
 export const getStaticProps = async () => {
-    const res = await fetch('http://my-json-server.typicode.com/Owoade/vinebranch/devotions');
+    const res = await fetch('https://vb-backend.herokuapp.com/fetch-devotion');
     const data = await res.json();
 
     return {
         props: {
-            dev: data.sort((a, b) => { return b.id - a.id })[0],
-            all_dev: data,
-            dev_id:data.sort((a, b) => { return b.id - a.id })[0].id
-
+            dev: data[0],
+           all_dev: data, 
+            dev_id:data[0].id
         }
     }
 }
 const index_dev = ({ dev,all_dev,dev_id }) => {
+    const __convert_date=(seconds)=>{
+        return new Date(seconds * 1000).toDateString()
+    }
     return (
         <div className="devotional-container">
             <header>
@@ -33,16 +35,16 @@ const index_dev = ({ dev,all_dev,dev_id }) => {
             <div className="blog-info">
                 <div className="top">
                     <h1>{dev.title} </h1>
-                    <span>{dev.date}</span>
+                    <span>{__convert_date(dev.date._seconds)}</span>
                 </div>
                 <main>
-                    <img src={dev.image} alt="" />
+                    <img src={dev.url} alt="" />
                 </main>
                 <div className="blog-wrapper">
-                    <strong>Morning verse : {dev.verse_first}</strong>
-                    <p>{dev.paragraph_1}</p>
-                    <strong>Evening verse : {dev.verse_two}</strong>
-                    <p>{dev.paragraph_2}</p>
+                <strong>Morning verse : {dev.morning_verse}</strong>
+                    <p>{dev.morning_paragraph}</p>
+                    <strong>Evening verse : {dev.evening_verse}</strong>
+                    <p>{dev.evening_paragraph}</p>
                     <strong> " {dev.prayer} "</strong>
                     <div className="others">
                         <h3>In case you missed previous devotions</h3>

@@ -13,23 +13,23 @@ const [image,setImage]=useState();
 const [prayer,setPrayer]=useState();
 const  dev_details={
   title,
-  verse_first,
-  paragraph_1,
-  verse_two,
-  paragraph_2,
+  morning_verse: verse_first,
+  morning_paragraph : paragraph_1,
+  evening_verse:verse_two,
+  evening_paragraph:paragraph_2,
   prayer,
-  image,
-  date:`${new Date().toDateString()}`
+  url:image
        
 }
 const sendBlog=()=>{
   if(paragraph_1 !='' && title !='' ){
-    fetch(`http://my-json-server.typicode.com/Owoade/vinebranch/devotions/`,{
+    fetch(`https://vb-backend.herokuapp.com/add-devotion`,{
       method:"POST",
       headers:{"Content-Type":"application/json"},
       body:JSON.stringify(dev_details)
   }).then(router.push('/admin/panel'))
   }else alert('Add a title and paragraph')
+  console.log(dev_details);
  
 }
 
