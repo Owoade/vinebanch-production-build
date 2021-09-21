@@ -11,6 +11,7 @@ export const getStaticProps= async()=>{
     // console.log(data_blogs,data_dev,data_streams);
 
     return{
+        revalidate: 60,
         props:{
             blog:data_blogs[0],
             devotional:data_dev[0],
