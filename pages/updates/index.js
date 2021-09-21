@@ -3,6 +3,7 @@ export const getStaticProps = async () => {
     const res = await fetch('https://vb-backend.herokuapp.com/fetch-post');
     const data = await res.json();
     return {
+        revalidate: 60,
         props: { blogs: data.filter((each)=>{return each.main != undefined}) }
     }
 }
