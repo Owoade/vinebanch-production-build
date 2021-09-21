@@ -22,6 +22,7 @@ export const getStaticPaths = async ()=>{
      const data = await res.json();
      const data_2 = await res2.json();
      return {
+         revalidate: 60,
          props: { stream: data,
         old_streams:data_2.filter((each)=>{return each.main != undefined}) 
     }
