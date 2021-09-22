@@ -3,8 +3,7 @@ export const getStaticProps = async () => {
     const res = await fetch('https://vb-backend.herokuapp.com/fetch-devotion');
     const data = await res.json();
 
-    return { 
-        revalidate: 60,
+    return {
         props: {
             dev: data[0],
            all_dev: data, 
@@ -36,7 +35,7 @@ const index_dev = ({ dev,all_dev,dev_id }) => {
             <div className="blog-info">
                 <div className="top">
                     <h1>{dev.title} </h1>
-                    <span>{__convert_date(dev.date._seconds)}</span>
+                    <span>{dev.dev_date}</span>
                 </div>
                 <main>
                     <img src={dev.url} alt="" />

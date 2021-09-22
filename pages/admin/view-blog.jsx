@@ -11,7 +11,6 @@ export const getStaticProps= async ({location})=>{
     const empty= data==[] ? true : false
     console.log(empty);
     return{
-        revalidate: 60,
         props:{
             data:data.filter((each)=>{return each.main != undefined}),
             dir,
@@ -28,8 +27,11 @@ const View = ({data,dir,key,status}) => {
     const [deleted,setDel]=useState('');
     useEffect(()=>{console.log('effect happened')},[deleted])
     const Delete = (id)=>{
+        let delete_req = confirm('Are you sure you wat delete this resource');
+        if(delete_req){
       const del =fetch(`https://vb-backend.herokuapp.com/delete-${new_key}/${id}`)  
       setDevotion(blogs.filter((each)=>{return each.id !== id}));
+        }
     }
     useEffect(()=>{},[blogs]);
      

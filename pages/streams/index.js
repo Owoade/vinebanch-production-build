@@ -5,7 +5,6 @@ export const getStaticProps = async (context) => {
     const res = await fetch(`https://vb-backend.herokuapp.com/fetch-stream`);
     const data = await res.json();
     return {
-        revalidate: 60,
         props: {
             stream: data[0],
             old_streams:data.filter((each)=>{return each.main != undefined}).filter((each,index)=>{return index != 0})

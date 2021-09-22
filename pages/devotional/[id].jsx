@@ -11,7 +11,7 @@ export const getStaticPaths = async ()=>{
  
     return {
         paths,
-        fallback:"blocking"
+        fallback:false
     }
  }
 
@@ -22,7 +22,6 @@ export const getStaticProps= async (context)=>{
     const res_2 = await fetch('https://vb-backend.herokuapp.com/fetch-devotion');
     const data_2 = await res_2.json();
     return {
-        revalidate: 60,
         props: { dev: data_1,
             all_dev: data_2,
             dev_id:id}
@@ -56,7 +55,7 @@ const dev_index = (props) => {
             <div className="blog-info">
                 <div className="top">
                     <h1>{dev.title} </h1>
-                    <span>{__convert_date( dev.date._seconds)}</span>
+                    <span>{dev.dev_date}</span>
                 </div>
                 <main>
                     <img src={dev.url} alt="" />

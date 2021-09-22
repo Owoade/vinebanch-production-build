@@ -12,7 +12,6 @@ export const getStaticProps= async ({location})=>{
     const data=await res.json()
     const empty= data==[] ? true : false
     return{
-        revalidate: 60,
         props:{
             data:data.filter((each)=>{return each.id != undefined}),
             dir,
@@ -25,9 +24,13 @@ const View = ({data,dir,key,status}) => {
   const [stream,setStream]=useState(data); 
   const [stat,setStat]=useState(status);
   const new_key= "stream";
- const Delete = (id)=>{
-      const del =fetch(`https://vb-backend.herokuapp.com/fetch-${new_key}/${id}`,{method:"DELETE"});;  
+ const Delete = async (id)=>{
+     let delete_req = confirm('Are you sure you wat delete this resource');
+     if(delete_req){
+        const del =  await fetch(`https://vb-backend.herokuapp.com/delete-${new_key}/${id}`);
      setStream(stream.filter((each)=>{return each.id !== id}));
+     }
+      
     } 
 useEffect(()=>{},[stream]);
  

@@ -11,6 +11,7 @@ const [paragraph_2,setPar_2]=useState();
 const [title,setTitle]=useState();
 const [image,setImage]=useState();
 const [prayer,setPrayer]=useState();
+const [dev_date,setDevDate]=useState();
 const  dev_details={
   title,
   morning_verse: verse_first,
@@ -18,7 +19,8 @@ const  dev_details={
   evening_verse:verse_two,
   evening_paragraph:paragraph_2,
   prayer,
-  url:image
+  url:image,
+  dev_date
        
 }
 const sendBlog=()=>{
@@ -30,7 +32,6 @@ const sendBlog=()=>{
   }).then(router.push('/admin/panel'))
   }else alert('Add a title and paragraph')
   console.log(dev_details);
- 
 }
 
     return ( 
@@ -49,7 +50,7 @@ const sendBlog=()=>{
         <input type="text" placeholder="Evening verse" onChange={(e)=>{setSecVerse(e.target.value)}} value={verse_two}  />
         <textarea placeholder="Write Something  cool..." className="paragraph" onChange={(e)=>{setPar_2(e.target.value)}} value={paragraph_2}></textarea>
         <input type="text" placeholder="Prayer" onChange={(e)=>{setPrayer(e.target.value)}} value={prayer}  />
-
+        <input type="text" placeholder="Input devotion date" onChange={(e)=>{setDevDate(e.target.value)}} value={dev_date}  />
       </div>
       </div>
      

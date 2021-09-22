@@ -16,9 +16,7 @@ const Admin = () => {
             setClick(false)
             alert("Wrong login credentials try again")
         }
-        
- 
-    
+           
     }
     return (
         <div className="parent-container">

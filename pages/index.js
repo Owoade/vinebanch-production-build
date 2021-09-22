@@ -14,7 +14,6 @@ export const getStaticProps = async () => {
 
 
   return {
-    revalidate:60,
     props: {
       dev: data[0],
       blogs: data2.filter((each, index) => { return index < 3 })
@@ -45,7 +44,7 @@ const Home = ({ dev, blogs }) => {
         </header>
         <div className="overlay"></div>
         <div className="hero-content">
-          <h1>Welcome to <span className="colored-text">Vine Branch</span> </h1>
+          <h1>Welcome to <span className="colored-text">Vine Branch Church, Apata.</span> </h1>
           <h2>The citadel of divine overflow</h2>
           <p>Join us every <span style={{ display: "inline-block" }}><Typewriter
 
@@ -53,14 +52,13 @@ const Home = ({ dev, blogs }) => {
 
               typewriter
 
-                .typeString("Sunday by 8:30 AM")
-
+                .typeString("Sunday by 9:00 AM")
                 .pauseFor(1000)
                 .deleteAll()
-                .typeString("Tuesday by 6:00 PM")
+                .typeString("Wednesday by 5:30 PM")
                 .pauseFor(1000)
                 .deleteAll()
-                .typeString("Thursday by 6:00 PM")
+                .typeString("Friday by 5:30 PM")
                 .pauseFor(1000)
                 .start();
             }}

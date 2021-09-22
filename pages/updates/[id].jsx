@@ -11,7 +11,7 @@ export const getStaticPaths = async ()=>{
  
     return {
         paths,
-        fallback:"blocking"
+        fallback:false
     }
  }
  export const getStaticProps= async (context)=>{
@@ -19,7 +19,6 @@ export const getStaticPaths = async ()=>{
      const res = await fetch(`https://vb-backend.herokuapp.com/fetch-post/${id}`);
      const data = await res.json();
      return {
-         revalidate: 60,
          props: { blog: data }
      }
  }
