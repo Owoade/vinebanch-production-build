@@ -1161,11 +1161,7 @@ DEV EDITOR
   /* ADMIN PANEL */
   /* ADMIN PANEL */
   /* ADMIN PANEL */
-  .admin-parent footer{
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-  }
+
   .admin-parent .error-message{
     color: whitesmoke;
   }
@@ -1270,6 +1266,9 @@ Utililty class
   background-color:rgb(9,9,52) ;
   /* padding-bottom:2em;  */
 }
+.action footer{
+  background-color:rgb(9,9,52) ;
+}
 .action{
  text-align: center;
  width: 300px;
@@ -1295,18 +1294,17 @@ Utililty class
   text-decoration: none;
   margin: 10px 0;
 }
-
 .parent-container-view{
   background-color:rgb(9,9,52);
   width: 100vw;
-  height: 100vh;
+  height: 100%;
 }
 .views{
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height:fit-content;
+  height:100vh;
 }
 .view{
   display: flex;
@@ -1315,7 +1313,6 @@ Utililty class
   background-color: rgba(246, 246, 246, 0.082);
   padding: 20px;
   height: 60px;
- 
 }
 .view span{
   width: 70%;
@@ -1338,4 +1335,8 @@ Utililty class
   padding: 2px 5px;
 }
 
-
+@media(max-width:500px){
+  .view{
+    width: 90%;
+  }
+}
