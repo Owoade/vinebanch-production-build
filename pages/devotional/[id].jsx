@@ -22,8 +22,8 @@ export const getStaticProps= async (context)=>{
     const res_2 = await fetch('https://vb-backend.herokuapp.com/fetch-devotion');
     const data_2 = await res_2.json();
     return {
+         revalidate: 60,
         props: { 
-             revalidate: 60,
             dev: data_1,
             all_dev: data_2,
             dev_id:id
