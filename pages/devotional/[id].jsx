@@ -11,7 +11,7 @@ export const getStaticPaths = async ()=>{
  
     return {
         paths,
-        fallback:false
+        fallback:"blocking"
     }
  }
 
@@ -22,9 +22,12 @@ export const getStaticProps= async (context)=>{
     const res_2 = await fetch('https://vb-backend.herokuapp.com/fetch-devotion');
     const data_2 = await res_2.json();
     return {
-        props: { dev: data_1,
+        props: { 
+             revalidate: 60,
+            dev: data_1,
             all_dev: data_2,
-            dev_id:id}
+            dev_id:id
+        }
         
     }
 }
