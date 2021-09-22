@@ -13,6 +13,7 @@ export const getStaticProps= async ({location})=>{
     const empty= data==[] ? true : false
     return{
         props:{
+             revalidate: 60,
             data:data.filter((each)=>{return each.id != undefined}),
             dir,
             key,
