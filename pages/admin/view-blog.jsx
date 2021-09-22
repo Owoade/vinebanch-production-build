@@ -11,6 +11,7 @@ export const getStaticProps= async ({location})=>{
     const empty= data==[] ? true : false
     console.log(empty);
     return{
+        revalidate: 60,
         props:{
             data:data.filter((each)=>{return each.main != undefined}),
             dir,
