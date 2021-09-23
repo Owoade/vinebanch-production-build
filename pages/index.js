@@ -14,6 +14,7 @@ export const getStaticProps = async () => {
 
 
   return {
+    revalidate:60,
     props: {
       dev: data[0],
       blogs: data2.filter((each, index) => { return index < 3 })
