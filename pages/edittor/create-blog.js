@@ -13,7 +13,7 @@ const  blog_details={
 }
 const sendBlog=()=>{
   if(paragraph !='' && title !=''){
-    fetch('https://vb-backend.herokuapp.com/add-post',{
+    fetch('https://us-central1-vb-backend-46ad2.cloudfunctions.net/app/add-post',{
       method:"POST",
       headers:{"Content-Type":"application/json"},
       body:JSON.stringify(blog_details)
