@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 export const getStaticProps = async (context) => {
-    const res = await fetch(`https://vb-backend.herokuapp.com/fetch-stream`);
+    const res = await fetch(`https://us-central1-vb-backend-46ad2.cloudfunctions.net/app/fetch-stream`);
     const data = await res.json();
     return {
         revalidate: 60,
