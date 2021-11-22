@@ -24,7 +24,7 @@ export const getStaticProps= async (context)=>{
     return {
          revalidate: 60,
         props: { 
-            dev: data_1.filter(each=> each.is_sent != undefined),
+            dev: data_1,
             all_dev: data_2.filter(each=> each.is_sent != undefined),
             dev_id:id
         }
