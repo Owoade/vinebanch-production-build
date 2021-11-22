@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import {useRouter} from 'next/router'
 export const getStaticPaths = async ()=>{
-    const res= await fetch('https://vb-backend.herokuapp.com/fetch-stream');
+    const res= await fetch('https://us-central1-vb-backend-46ad2.cloudfunctions.net/app/fetch-stream');
     const data = await res.json();
     
     const paths = data.map(each=>{
@@ -18,8 +18,8 @@ export const getStaticPaths = async ()=>{
  }
  export const getStaticProps= async (context)=>{
      const id = context.params.id;
-     const res = await fetch(`https://vb-backend.herokuapp.com/fetch-stream/${id}`);
-     const res2 = await fetch(`https://vb-backend.herokuapp.com/fetch-stream`);
+     const res = await fetch(`https://us-central1-vb-backend-46ad2.cloudfunctions.net/app/${id}`);
+     const res2 = await fetch(`https://us-central1-vb-backend-46ad2.cloudfunctions.net/app/fetch-stream`);
      const data = await res.json();
      const data_2 = await res2.json();
      return {
