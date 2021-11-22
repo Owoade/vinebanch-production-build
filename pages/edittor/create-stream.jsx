@@ -13,7 +13,7 @@ const edittor = () => {
     }
     const sendStream = () => {
         if (link != '' && title != '') {
-            fetch('https://vb-backend.herokuapp.com/add-stream', {
+            fetch('https://us-central1-vb-backend-46ad2.cloudfunctions.net/app/add-stream', {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(stream_details)
