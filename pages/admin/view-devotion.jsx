@@ -8,7 +8,7 @@ export const getStaticProps= async ({location})=>{
     const key= "devotion";
     const dir="devotional";
    
-    const res=await fetch(`https://vb-backend.herokuapp.com/fetch-${key}`)
+    const res=await fetch(`https://us-central1-vb-backend-46ad2.cloudfunctions.net/app/fetch-${key}`)
     const data=await res.json()
     const empty= data==[] ? true : false
     return{
@@ -28,7 +28,7 @@ const View = ({data,dir,key,status}) => {
     const Delete = (id)=>{
         let delete_req = confirm('Are you sure you wat delete this resource');
         if(delete_req){
-        const del =fetch(`https://vb-backend.herokuapp.com/delete-${new_key}/${id}`);  
+        const del =fetch(`https://us-central1-vb-backend-46ad2.cloudfunctions.net/app/delete-${new_key}/${id}`);  
        setDevotion(devotion.filter((each)=>{return each.id !== id}));
         }
       } 
