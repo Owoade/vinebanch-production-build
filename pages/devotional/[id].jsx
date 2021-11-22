@@ -17,9 +17,9 @@ export const getStaticPaths = async ()=>{
 
 export const getStaticProps= async (context)=>{
     const id = context.params.id;
-    const res_1 = await fetch(`https://vb-backend.herokuapp.com/fetch-devotion/${id}`);
+    const res_1 = await fetch(`https://us-central1-vb-backend-46ad2.cloudfunctions.net/app/fetch-devotion/${id}`);
     const data_1 = await res_1.json();
-    const res_2 = await fetch('https://vb-backend.herokuapp.com/fetch-devotion');
+    const res_2 = await fetch('https://us-central1-vb-backend-46ad2.cloudfunctions.net/app/fetch-devotion');
     const data_2 = await res_2.json();
     return {
          revalidate: 60,
