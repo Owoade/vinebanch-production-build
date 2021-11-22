@@ -16,7 +16,7 @@ export const getStaticPaths = async ()=>{
  }
  export const getStaticProps= async (context)=>{
      const id = context.params.id;
-     const res = await fetch(`https://vb-backend.herokuapp.com/fetch-post/${id}`);
+     const res = await fetch(`https://us-central1-vb-backend-46ad2.cloudfunctions.net/app/fetch-post/${id}`);
      const data = await res.json();
      return {
           revalidate: 60,
