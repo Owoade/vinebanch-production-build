@@ -7,8 +7,8 @@ import Typewriter from "typewriter-effect"
 import { AiOutlineMenu } from "react-icons/ri";
 
 export const getStaticProps = async () => {
-  const res = await fetch('https://vb-backend.herokuapp.com/fetch-devotion');
-  const res2 = await fetch('https://vb-backend.herokuapp.com/fetch-post');
+  const res = await fetch('https://us-central1-vb-backend-46ad2.cloudfunctions.net/app/fetch-devotion');
+  const res2 = await fetch('https://us-central1-vb-backend-46ad2.cloudfunctions.net/app/fetch-post');
   const data = await res.json();
   const data2 = await res2.json();
 
