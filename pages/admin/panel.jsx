@@ -1,9 +1,9 @@
 import Link from "next/link";
 import {useRouter} from 'next/router'
 export const getStaticProps= async()=>{
-    const res_blogs=await fetch("https://vb-backend.herokuapp.com/fetch-post");
-    const res_dev=await fetch("https://vb-backend.herokuapp.com/fetch-devotion");
-    const res_streams=await fetch("https://vb-backend.herokuapp.com/fetch-stream");
+    const res_blogs=await fetch("https://us-central1-vb-backend-46ad2.cloudfunctions.net/app/fetch-post");
+    const res_dev=await fetch("https://us-central1-vb-backend-46ad2.cloudfunctions.net/app/fetch-devotion");
+    const res_streams=await fetch("https://us-central1-vb-backend-46ad2.cloudfunctions.net/app/fetch-stream");
 
     const data_blogs=await res_blogs.json();
     const data_dev=await res_dev.json();
