@@ -6,9 +6,9 @@ export const getStaticProps = async () => {
     return {
          revalidate: 60,
         props: {
-            dev: data[0],
-           all_dev: data, 
-            dev_id:data[0].id
+            dev: data.filter((each)=>{each.is_sent != undefined})[0],
+           all_dev: data.filter((each)=>{each.is_sent != undefined}), 
+            dev_id:data.filter((each)=>{each.is_sent != undefined})[0].id
         }
     }
 }
