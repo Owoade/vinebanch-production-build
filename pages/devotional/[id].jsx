@@ -1,6 +1,6 @@
 import Link from 'next/link';
 export const getStaticPaths = async ()=>{
-    const res= await fetch('https://vb-backend.herokuapp.com/fetch-devotion');
+    const res= await fetch('https://us-central1-vb-backend-46ad2.cloudfunctions.net/app/fetch-devotion');
     const data = await res.json();
     
     const paths = data.map(each=>{
