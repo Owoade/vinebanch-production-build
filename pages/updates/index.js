@@ -1,6 +1,6 @@
 import Link from 'next/link'
 export const getStaticProps = async () => {
-    const res = await fetch('https://vb-backend.herokuapp.com/fetch-post');
+    const res = await fetch('https://us-central1-vb-backend-46ad2.cloudfunctions.net/app/fetch-post');
     const data = await res.json();
     return {
          revalidate: 60,
