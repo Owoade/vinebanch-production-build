@@ -25,7 +25,7 @@ const  dev_details={
 }
 const sendBlog=()=>{
   if(paragraph_1 !='' && title !='' ){
-    fetch(`https://vb-backend.herokuapp.com/add-devotion`,{
+    fetch(`https://us-central1-vb-backend-46ad2.cloudfunctions.net/app/add-devotion`,{
       method:"POST",
       headers:{"Content-Type":"application/json"},
       body:JSON.stringify(dev_details)
